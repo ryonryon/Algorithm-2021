@@ -1,24 +1,8 @@
-import Heap from "./Heap";
+import bucketSort from "./bucketSort";
 
 (() => {
-  const heap = new Heap([10,10,7,2]);
+  const arr = [122, 345, 8765,34567,6,4,3,5,6,3,7];
 
-  console.log(heap.getAll());
+  const arr2 = bucketSort(arr);
 
-  const deleted1 = heap.delete();
-  const deleted2 = heap.delete();
-  const deleted3 = heap.delete();
-  const deleted4 = heap.delete();
-  
-  console.log(deleted1);
-  console.log(heap.getAll());
-  
-  console.log(deleted2);
-  console.log(heap.getAll());
-  
-  console.log(deleted3);
-  console.log(heap.getAll());
-  
-  console.log(deleted4);
-  console.log(heap.getAll());
 })()

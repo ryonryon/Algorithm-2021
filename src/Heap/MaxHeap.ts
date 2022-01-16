@@ -1,5 +1,4 @@
-
-export default class Heap {
+export default class MaxHeap {
   private arr: number[];
 
   constructor(arr: number[] = []) {
@@ -52,23 +51,21 @@ export default class Heap {
     let k = 0;
     while (k <= this.arr.length) {
       const [cLeft, cRight] = [2 * k +1, 2 * k +2];
+        
+      const kVal = this.arr[k];
+      const cLeftVal = this.arr[cLeft] ?? - Infinity;
+      const cRightVal = this.arr[cRight] ?? - Infinity;
+        
+      if (cLeftVal <= kVal && cRightVal <= kVal) break;
 
-      if (this.arr[cLeft] < this.arr[cRight]) {
-        if (this.arr[k] < this.arr[cRight]) {
-          this.swap(k, cRight);
+      if (cLeftVal < cRightVal) {
+        this.swap(k, cRight);
 
-          k = cRight;
-        } else {
-          break;
-        }
+        k = cRight;
       } else {
-        if (this.arr[k] < this.arr[cLeft]) {
-          this.swap(k, cLeft);
+        this.swap(k, cLeft);
 
-          k = cLeft;
-        } else {
-          break;
-        }
+        k = cLeft;
       }
     }
 
