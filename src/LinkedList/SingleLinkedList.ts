@@ -1,4 +1,4 @@
-class MyLinkedList {
+export default class SingleLinkedList {
   root: LinkedListNode | null;
 
   constructor() {
@@ -6,9 +6,13 @@ class MyLinkedList {
   }
 
   get(index: number): number {
-    const node = this.getNodeAt(index);
+    try {
+      const node = this.getNodeAt(index);
 
-    return node.value;
+      return node.value;
+    } catch (e) {
+      return -1;
+    }
   }
 
   addAtHead(val: number): void {
@@ -34,20 +38,36 @@ class MyLinkedList {
       node = node.next;
     }
 
-    node = new LinkedListNode(val);
+    node.next = new LinkedListNode(val);
   }
 
   addAtIndex(index: number, val: number): void {
-    const node = this.getNodeAt(index - 1);
-    const newNode = new LinkedListNode(val);
+    if (index === 0) {
+      this.addAtHead(val);
 
-    [node.next, newNode.next] = [newNode, node.next];
+      return;
+    }
+
+    try {
+      const node = this.getNodeAt(index - 1);
+      const newNode = new LinkedListNode(val);
+
+      [node.next, newNode.next] = [newNode, node.next];
+    } catch (e) {}
   }
 
   deleteAtIndex(index: number): void {
-    const node = this.getNodeAt(index - 1);
+    if (index === 0) {
+      this.root = this.root?.next ?? null;
 
-    node.next = node.next?.next ?? null;
+      return;
+    }
+
+    try {
+      const node = this.getNodeAt(index - 1);
+
+      node.next = node.next?.next ?? null;
+    } catch (e) {}
   }
 
   private getNodeAt(index: number): LinkedListNode {
@@ -56,6 +76,8 @@ class MyLinkedList {
     let i = 0;
     while (i < index) {
       node = node?.next ?? null;
+
+      i++;
     }
 
     if (node === null || i !== index) {
@@ -65,16 +87,6 @@ class MyLinkedList {
     return node;
   }
 }
-
-/**
- * Your MyLinkedList object will be instantiated and called as such:
- * var obj = new MyLinkedList()
- * var param_1 = obj.get(index)
- * obj.addAtHead(val)
- * obj.addAtTail(val)
- * obj.addAtIndex(index,val)
- * obj.deleteAtIndex(index)
- */
 
 class LinkedListNode {
   value: number;
