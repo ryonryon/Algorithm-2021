@@ -6,7 +6,7 @@ function findCircleNum(isConnected: number[][]): number {
   for (let i = 0; i < size; i++) {
     for (let j = 0; j < size; j++) {
       if (i === j) {
-        continue;
+        break;
       }
 
       if (isConnected[i][j] === 1) {
